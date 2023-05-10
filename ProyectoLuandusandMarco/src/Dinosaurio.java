@@ -23,11 +23,11 @@ public class Dinosaurio extends JFrame {
 		graficoDinosaurio.empiezaJuego();
 	}
 
-	public static void main(String[] args) {
-		Dinosaurio dn = new Dinosaurio();
-		dn.setVisible(true);
-		dn.empiezaJuego();
-	}
+		public static void main(String[] args) {
+			Dinosaurio dn = new Dinosaurio();
+			dn.setVisible(true);
+			dn.empiezaJuego();
+			}
 
 	public void paint(Graphics g) {
 		super.paint(g);
