@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
-public class Ranking extends JFrame {
+public class Ranking extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -29,7 +29,7 @@ public class Ranking extends JFrame {
 	public String sql=null;
 	public Statement statement=null;
 	public Connection conn=null;
-	private JTable table_1;
+	
 
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class Ranking extends JFrame {
 	 */
 	public Ranking() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 655, 405);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -60,11 +60,13 @@ public class Ranking extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 250, 414, -240);
+		scrollPane.setBounds(104, 72, 365, 199);
 		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
-		scrollPane.setViewportView(table);
 
 		conectar();
 		
@@ -94,7 +96,7 @@ public class Ranking extends JFrame {
 	public void cargarCabecera() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM PRO");
+			rs=s.executeQuery("SELECT * FROM RANKING");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			// Se obtiene el numero de columnas.
 			int numeroColumnas = metaDatos.getColumnCount();
@@ -114,7 +116,7 @@ public class Ranking extends JFrame {
 	public void cargarDatos() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM PRO");
+			rs=s.executeQuery("SELECT * FROM RANKING");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			while (rs.next()) {
 				// Se obtiene el numero de columnas.
