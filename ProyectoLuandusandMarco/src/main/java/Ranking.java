@@ -15,6 +15,10 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 
 public class Ranking extends JFrame{
 
@@ -29,6 +33,7 @@ public class Ranking extends JFrame{
 	public String sql=null;
 	public Statement statement=null;
 	public Connection conn=null;
+	private JTextField txtPuesto;
 	
 
 	/**
@@ -67,6 +72,14 @@ public class Ranking extends JFrame{
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
 		scrollPane.setViewportView(table);
+		
+		txtPuesto = new JTextField();
+		txtPuesto.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPuesto.setText("Puesto");
+		txtPuesto.setBackground(SystemColor.menu);
+		txtPuesto.setBounds(469, 72, 96, 18);
+		contentPane.add(txtPuesto);
+		txtPuesto.setColumns(10);
 		conectar();
 		cargarCabecera();
 		cargarDatos(); 
@@ -129,5 +142,4 @@ public class Ranking extends JFrame{
 		e.printStackTrace();
 		}
 	}
-	
 }
