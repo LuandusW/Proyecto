@@ -64,15 +64,11 @@ public class Ranking extends JFrame{
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		scrollPane.setViewportView(table);
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
-
+		scrollPane.setViewportView(table);
 		conectar();
-		modelo.setColumnCount(0);
 		cargarCabecera();
-		
-		modelo.setRowCount(0);
 		cargarDatos(); 
 		
 	}
@@ -97,11 +93,9 @@ public class Ranking extends JFrame{
 	public void cargarCabecera() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM USUARIOS");
+			rs=s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS");
 			ResultSetMetaData metaDatos = rs.getMetaData();
-			// Se obtiene el numero de columnas.
 			int numeroColumnas = metaDatos.getColumnCount();
-			// Se obtienen las etiquetas para cada columna
 			Object[] etiquetas= new Object[numeroColumnas];
 			for (int i = 0; i < numeroColumnas; i++) {
 				etiquetas[i]=metaDatos.getColumnLabel(i+1);
@@ -118,10 +112,9 @@ public class Ranking extends JFrame{
 	public void cargarDatos() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM USUARIOS");
+			rs=s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS ORDER BY puntuacion DESC LIMIT 3");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			while (rs.next()) {
-				// Se obtiene el numero de columnas.
 				int numeroColumnas = metaDatos.getColumnCount();
 				Object[] fila = new Object[numeroColumnas];
 				for (int i = 0; i < numeroColumnas; i++) {
@@ -136,4 +129,5 @@ public class Ranking extends JFrame{
 		e.printStackTrace();
 		}
 	}
+	
 }
