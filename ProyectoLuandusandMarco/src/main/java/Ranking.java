@@ -69,10 +69,11 @@ public class Ranking extends JFrame{
 		table = new JTable(modelo);
 
 		conectar();
-		
+		modelo.setColumnCount(0);
 		cargarCabecera();
 		
-		cargarDatos();
+		modelo.setRowCount(0);
+		cargarDatos(); 
 		
 	}
 	public void conectar() {
@@ -96,7 +97,7 @@ public class Ranking extends JFrame{
 	public void cargarCabecera() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM RANKING");
+			rs=s.executeQuery("SELECT * FROM USUARIOS");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			// Se obtiene el numero de columnas.
 			int numeroColumnas = metaDatos.getColumnCount();
@@ -106,6 +107,7 @@ public class Ranking extends JFrame{
 				etiquetas[i]=metaDatos.getColumnLabel(i+1);
 				modelo.addColumn(metaDatos.getColumnLabel(i + 1));
 			}
+			System.out.println("Columnas cargadas");
 
 		} catch (SQLException e) {
 		e.printStackTrace();
@@ -116,7 +118,7 @@ public class Ranking extends JFrame{
 	public void cargarDatos() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM RANKING");
+			rs=s.executeQuery("SELECT * FROM USUARIOS");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			while (rs.next()) {
 				// Se obtiene el numero de columnas.
@@ -127,6 +129,7 @@ public class Ranking extends JFrame{
 				}
 				modelo.addRow(fila);
 			}
+			System.out.println("Datos cargados");
 		} catch (SQLException e) {
 		e.printStackTrace();
 		} catch (Exception e) {

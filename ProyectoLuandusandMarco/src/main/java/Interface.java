@@ -60,9 +60,8 @@ public class Interface extends JFrame{
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nom_usuario=JOptionPane.showInputDialog("Introduce un nombre de usuario");
-				String pass_usuario=JOptionPane.showInputDialog("Introduce tu contraseña");
-				insertarDatos(nom_usuario,pass_usuario);
+				String nom_usuario=JOptionPane.showInputDialog("Introduce un nombre de usuario para jugar");
+				insertarDatos(nom_usuario);
 				Dinosaurio dino=new Dinosaurio();
 				dino.setVisible(true);
 			}
@@ -99,11 +98,10 @@ public class Interface extends JFrame{
 		e.printStackTrace();
 		}
 	}
-	public void insertarDatos(String nom_usuario, String pass_usuario) {
+	public void insertarDatos(String nom_usuario) {
 		try {
-			PreparedStatement statement=conn.prepareStatement("INSERT INTO USUARIOS(nom_usuario,pass_usuario) VALUES (?,?)");
+			PreparedStatement statement=conn.prepareStatement("INSERT INTO USUARIOS(nom_usuario) VALUES (?)");
 			statement.setString(1,nom_usuario);
-			statement.setString(2,pass_usuario);
 			int retorno=statement.executeUpdate();
 			if (retorno>0) {
 				System.out.println("Insertado correctamente");
