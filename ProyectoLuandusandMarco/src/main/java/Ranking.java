@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class Ranking extends JFrame{
 
@@ -60,11 +62,15 @@ public class Ranking extends JFrame{
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(104, 72, 365, 199);
+		scrollPane.setBounds(127, 63, 365, 199);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\aemlocal\\git\\Proyecto\\ProyectoLuandusandMarco\\contenido\\t.png"));
+		scrollPane.setColumnHeaderView(lblNewLabel);
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
 
