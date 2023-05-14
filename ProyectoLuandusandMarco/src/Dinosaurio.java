@@ -34,10 +34,10 @@ public class Dinosaurio extends JFrame {
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(new File("./contenido/cactus1.png"));
-			g.drawImage(image, 100, 100, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		g.drawImage(image, 100, 100, null);
 	}
 }
