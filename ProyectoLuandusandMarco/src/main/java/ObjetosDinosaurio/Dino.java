@@ -2,6 +2,7 @@ package ObjetosDinosaurio;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import org.apache.log4j.lf5.util.Resource;
@@ -10,21 +11,21 @@ import Util.Animacion;
 
 public class Dino {
 	private static final float GRAVITYY = 0.1f;
-	public static final float GROUNDYY = 300;
+	public static final float GROUNDYY = 110;
 	private float x = 0;
 	private float y = 0;
 	private float speedY = 0;
 	private Animacion correr;
-	
-	
+	private Rectangle rect;
 
 	public Dino() {
 		correr = new Animacion(200);
-		correr.addFrame(Util.Resource.getResouceImage("./contenido/main-character1.png"));
-		correr.addFrame(Util.Resource.getResouceImage("./contenido/main-character2.png"));
+		correr.addFrame(Util.Resource.getResourceImage("./contenido/main-character1.png"));
+		correr.addFrame(Util.Resource.getResourceImage("./contenido/main-character2.png"));
+		rect = new Rectangle();
 	}
 
-	public void update() {
+	public void actualizar() {
 		correr.updateFrame();
 		// all these line code for jumping
 		if (y >= GROUNDYY - correr.getFrame().getHeight()) {
@@ -34,8 +35,15 @@ public class Dino {
 			speedY += GRAVITYY;
 			y += speedY;
 		}
-		speedY += GRAVITYY;
-		y += speedY;
+
+		rect.x = (int) x;
+		rect.y = (int) y;
+		rect.width = correr.getFrame().getWidth();
+		rect.height = correr.getFrame().getHeight();
+	}
+
+	public Rectangle getBound() {
+		return rect;
 	}
 
 	public void draw(Graphics g) {

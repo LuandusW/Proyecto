@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+package Game;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,7 +13,8 @@ public class Dinosaurio extends JFrame {
 
 	public Dinosaurio() {
 		super("Dinosaurio");
-		setSize(400, 400);
+		setSize(600, 175);
+		setLocation(400, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gd = new GraficoDinosaurio();
 		add(gd);
