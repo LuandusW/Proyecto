@@ -17,6 +17,7 @@ public class Dino {
 	private float speedY = 0;
 	private Animacion correr;
 	private Rectangle rect;
+	private boolean isVida = true;
 
 	public Dino() {
 		correr = new Animacion(200);
@@ -79,6 +80,15 @@ public class Dino {
 
 	public void setSpeedY(float speedY) {
 		this.speedY = speedY;
+	}
+	
+	public void setVida(boolean vida) {
+		
+		isVida = vida;
+	}
+	
+	public boolean getVida() {
+		return isVida;
 	}
 
 }

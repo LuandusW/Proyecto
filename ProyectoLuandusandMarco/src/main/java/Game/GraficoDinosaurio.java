@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
 
 import ObjetosDinosaurio.Cactus;
@@ -11,9 +13,12 @@ import ObjetosDinosaurio.DieDino;
 import ObjetosDinosaurio.Dino;
 import ObjetosDinosaurio.Isla;
 import ObjetosDinosaurio.Nubes;
+import Util.Resource;
 
 public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
-
+	public static final int JUEGO_STATUS = 0;
+	public static final int JUEGO_EMPIEZA = 1;
+	public static final int JUEGO_ACABA = 2;
 	private static final float GRAVITY = 0.1f;
 	public static final float GROUNDY = 110;
 
@@ -22,6 +27,11 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	private Isla isla;
 	private Nubes nubes;
 	private DieDino diedino;
+	private int puntos;
+
+	private int statusGame = JUEGO_STATUS;
+
+	private BufferedImage imgGameOver;
 
 	public GraficoDinosaurio() {
 		thread = new Thread(this);
@@ -30,7 +40,8 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 		dino.setX(50);
 		isla = new Isla(this);
 		nubes = new Nubes();
-		diedino = new DieDino();
+		diedino = new DieDino(dino,this);
+		imgGameOver = Resource.getResourceImage("./contenido/gameover_text.png");
 	}
 
 	public void empiezaJuego() {
@@ -41,10 +52,7 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	public void run() {
 		while (true) {
 			try {
-				dino.actualizar();
-				isla.actualizar();
-				nubes.actualizar();
-				diedino.actualizar();
+				actualizar();
 				repaint();
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
@@ -52,7 +60,26 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 				e.printStackTrace();
 			}
 		}
+	}
 
+	public void actualizar() {
+		switch (statusGame) {
+		case JUEGO_EMPIEZA:
+			dino.actualizar();
+			isla.actualizar();
+			nubes.actualizar();
+			diedino.actualizar();
+			if (!dino.getVida()) {
+				statusGame = JUEGO_ACABA;
+			}
+			break;
+
+		}
+
+	}
+	
+	public void plusPuntos(int puntos) {
+		this.puntos += puntos;
 	}
 
 	@Override
@@ -62,10 +89,29 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.black);
 		g.drawLine(0, (int) GROUNDY, getWidth(), (int) GROUNDY);
-		nubes.draw(g);
-		isla.draw(g);
-		dino.draw(g);
-		diedino.draw(g);
+
+		switch (statusGame) {
+		case JUEGO_STATUS:
+			dino.draw(g);
+			break;
+		case JUEGO_EMPIEZA:
+			nubes.draw(g);
+			isla.draw(g);
+			dino.draw(g);
+			diedino.draw(g);
+			g.drawString("Puntos: " + String.valueOf(puntos), 500, 20);
+			break;
+		case JUEGO_ACABA:
+			nubes.draw(g);
+			isla.draw(g);
+			dino.draw(g);
+			diedino.draw(g);
+			if (statusGame == JUEGO_ACABA) {
+				g.drawImage(imgGameOver, 200, 50, null);
+			}
+			break;
+
+		}
 
 	}
 
@@ -76,12 +122,22 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		dino.jump();
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_SPACE:
+			if (statusGame == JUEGO_STATUS) {
+				statusGame = JUEGO_EMPIEZA;
+			} else if (statusGame == JUEGO_EMPIEZA) {
+				dino.jump();
+			} else if (statusGame == JUEGO_ACABA) {
+				statusGame = JUEGO_STATUS;
+			}
+			break;
+		}
 	}
 
 }
