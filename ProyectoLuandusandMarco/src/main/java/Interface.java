@@ -1,4 +1,6 @@
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -7,9 +9,13 @@ import javax.swing.border.EmptyBorder;
 
 import Game.Dinosaurio;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -64,12 +70,16 @@ public class Interface extends JFrame{
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nom_usuario=JOptionPane.showInputDialog("Introduce un nombre de usuario para jugar");
-				insertarDatos(nom_usuario);
-				Dinosaurio dino=new Dinosaurio();
-				dino.setVisible(true);
+				if(nom_usuario==null) {
+				}else {
+					insertarDatos(nom_usuario);
+					Dinosaurio dino=new Dinosaurio();
+					dino.setVisible(true);
+					dino.empiezaJuego();
+				}
 			}
 		});
-		btnJugar.setBounds(168, 132, 125, 32);
+		btnJugar.setBounds(100, 251, 125, 32);
 		contentPane.add(btnJugar);
 		
 		JButton btnRanking = new JButton("Ranking");
@@ -79,7 +89,7 @@ public class Interface extends JFrame{
 				r.setVisible(true);
 			}
 		});
-		btnRanking.setBounds(168, 195, 125, 32);
+		btnRanking.setBounds(300, 251, 125, 32);
 		contentPane.add(btnRanking);
 		conectar();
 	}
@@ -115,5 +125,26 @@ public class Interface extends JFrame{
 		e.printStackTrace();
 		}
 	}
-	
+	public void comprobar(String nom_usuario) {
+		try {
+			Statement s = conn.createStatement();
+			rs=s.executeQuery("SELECT * FROM USUARIOS WHERE nom_usuario='"+nom_usuario+"'");
+			String check_nom_usuario = rs.getString(1);
+		} catch (SQLException e) {
+		e.printStackTrace();
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
+	public void paint(Graphics g) {
+		super.paint(g);
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File("./contenido/fondo.png"));
+			g.drawImage(image, 20, 80, null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

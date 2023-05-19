@@ -1,10 +1,6 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
-<<<<<<< HEAD
-import java.awt.image.BufferedImage;
-=======
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,33 +24,20 @@ import javax.swing.table.DefaultTableModel;
 import jxl.format.Colour;
 
 import javax.swing.JScrollPane;
-<<<<<<< HEAD
-=======
 import javax.swing.JTextField;
 import java.awt.SystemColor;
 import java.awt.image.BufferedImage;
 
 import javax.swing.SwingConstants;
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 import javax.swing.JLabel;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
-public class Ranking extends JFrame {
+public class Ranking extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel modelo;
-	public Properties prop = null;
+	public Properties prop=null;
 	public FileInputStream is = null;
-<<<<<<< HEAD
-	public Statement st = null;
-	public PreparedStatement stmt = null;
-	public ResultSet rs = null;
-	public String sql = null;
-	public Statement statement = null;
-	public Connection conn = null;
-=======
 	public Statement st=null;
 	public PreparedStatement stmt=null;
 	public ResultSet rs=null;
@@ -68,7 +51,6 @@ public class Ranking extends JFrame {
 	private JTextField txtPuntuacion3;
 	private JTextField txtNombre3;
 	
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 
 	/**
 	 * Launch the application.
@@ -97,34 +79,22 @@ public class Ranking extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JScrollPane scrollPane = new JScrollPane();
-<<<<<<< HEAD
-		scrollPane.setBounds(127, 63, 365, 199);
-=======
 		scrollPane.setBounds(10, 11, 7, 9);
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 		contentPane.add(scrollPane);
-
+		
 		table = new JTable();
-
-		scrollPane.setViewportView(table);
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
 		scrollPane.setViewportView(table);
-<<<<<<< HEAD
-=======
 		table.setRowHeight(100);
 		table.setBackground(null);
 		table.setGridColor(Color.black);
 		scrollPane.setVisible(false);
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 		conectar();
 		cargarCabecera();
 		cargarDatos();
-<<<<<<< HEAD
-
-=======
 		int puntuacion1=(int) modelo.getValueAt(0, 1);
 		String p1=Integer.toString(puntuacion1);
 		int puntuacion2=(int) modelo.getValueAt(1, 1);
@@ -186,65 +156,48 @@ public class Ranking extends JFrame {
 		contentPane.add(txtPuntuacion3);
 		txtPuntuacion3.setText(p3);
 		
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 	}
-
-	public void paint(Graphics g) {
-		super.paint(g);
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File("./contenido/aa.png"));
-			g.drawImage(image, 300, 300, null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-
 	public void conectar() {
 		try {
-			prop = new Properties();
+			prop=new Properties();
 			is = new FileInputStream("src/main/resources/bd.properties");
 			prop.load(is);
-			String user = prop.getProperty("user", "");
-			String password = prop.getProperty("password", "");
-			String url = prop.getProperty("url", "");
-			String driver = prop.getProperty("driver", "");
+			String user = prop.getProperty("user","");
+			String password = prop.getProperty("password","");
+			String url = prop.getProperty("url","");
+			String driver = prop.getProperty("driver","");
 			Class.forName(driver).newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			System.out.println("== Conexion establecida ==");
 		} catch (SQLException e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		}
 	}
-
 	public void cargarCabecera() {
 		try {
 			Statement s = conn.createStatement();
-			rs = s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS");
+			rs=s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			int numeroColumnas = metaDatos.getColumnCount();
-			Object[] etiquetas = new Object[numeroColumnas];
+			Object[] etiquetas= new Object[numeroColumnas];
 			for (int i = 0; i < numeroColumnas; i++) {
-				etiquetas[i] = metaDatos.getColumnLabel(i + 1);
+				etiquetas[i]=metaDatos.getColumnLabel(i+1);
 				modelo.addColumn(metaDatos.getColumnLabel(i + 1));
 			}
 			System.out.println("Columnas cargadas");
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		}
 	}
-
 	public void cargarDatos() {
 		try {
 			Statement s = conn.createStatement();
-			rs = s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS ORDER BY puntuacion DESC LIMIT 3");
+			rs=s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS ORDER BY puntuacion DESC LIMIT 3");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			while (rs.next()) {
 				int numeroColumnas = metaDatos.getColumnCount();
@@ -256,14 +209,11 @@ public class Ranking extends JFrame {
 			}
 			System.out.println("Datos cargados");
 		} catch (SQLException e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+		e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-
-=======
 	public void paint(Graphics g) {
 		super.paint(g);
 		BufferedImage image = null;
@@ -275,5 +225,4 @@ public class Ranking extends JFrame {
 			e.printStackTrace();
 		}
 	}
->>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 }
