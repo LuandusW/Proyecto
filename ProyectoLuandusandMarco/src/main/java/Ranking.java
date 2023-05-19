@@ -1,6 +1,10 @@
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
+=======
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,12 +17,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import jxl.format.Colour;
+
 import javax.swing.JScrollPane;
+<<<<<<< HEAD
+=======
+import javax.swing.JTextField;
+import java.awt.SystemColor;
+import java.awt.image.BufferedImage;
+
+import javax.swing.SwingConstants;
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -30,12 +47,28 @@ public class Ranking extends JFrame {
 	private DefaultTableModel modelo;
 	public Properties prop = null;
 	public FileInputStream is = null;
+<<<<<<< HEAD
 	public Statement st = null;
 	public PreparedStatement stmt = null;
 	public ResultSet rs = null;
 	public String sql = null;
 	public Statement statement = null;
 	public Connection conn = null;
+=======
+	public Statement st=null;
+	public PreparedStatement stmt=null;
+	public ResultSet rs=null;
+	public String sql=null;
+	public Statement statement=null;
+	public Connection conn=null;
+	private JTextField txtNombre1;
+	private JTextField txtPuntuacion1;
+	private JTextField txtNombre2;
+	private JTextField txtPuntuacion2;
+	private JTextField txtPuntuacion3;
+	private JTextField txtNombre3;
+	
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 
 	/**
 	 * Launch the application.
@@ -66,7 +99,11 @@ public class Ranking extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
+<<<<<<< HEAD
 		scrollPane.setBounds(127, 63, 365, 199);
+=======
+		scrollPane.setBounds(10, 11, 7, 9);
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -75,10 +112,81 @@ public class Ranking extends JFrame {
 		modelo = new DefaultTableModel();
 		table = new JTable(modelo);
 		scrollPane.setViewportView(table);
+<<<<<<< HEAD
+=======
+		table.setRowHeight(100);
+		table.setBackground(null);
+		table.setGridColor(Color.black);
+		scrollPane.setVisible(false);
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 		conectar();
 		cargarCabecera();
 		cargarDatos();
+<<<<<<< HEAD
 
+=======
+		int puntuacion1=(int) modelo.getValueAt(0, 1);
+		String p1=Integer.toString(puntuacion1);
+		int puntuacion2=(int) modelo.getValueAt(1, 1);
+		String p2=Integer.toString(puntuacion2);
+		int puntuacion3=(int) modelo.getValueAt(2, 1);
+		String p3=Integer.toString(puntuacion3);
+		
+		txtNombre1 = new JTextField();
+		txtNombre1.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombre1.setBounds(271, 315, 86, 20);
+		contentPane.add(txtNombre1);
+		txtNombre1.setColumns(10);
+		txtNombre1.setBackground(null);
+		txtNombre1.setBorder(null);
+		txtNombre1.setText((String) modelo.getValueAt(0, 0));
+		
+		txtPuntuacion1 = new JTextField();
+		txtPuntuacion1.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPuntuacion1.setColumns(10);
+		txtPuntuacion1.setBackground(null);
+		txtPuntuacion1.setBorder(null);
+		txtPuntuacion1.setBounds(271, 335, 86, 20);
+		contentPane.add(txtPuntuacion1);
+		txtPuntuacion1.setText(p1);
+		
+		txtNombre2 = new JTextField();
+		txtNombre2.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombre2.setColumns(10);
+		txtNombre2.setBackground(null);
+		txtNombre2.setBorder(null);
+		txtNombre2.setBounds(186, 315, 86, 20);
+		contentPane.add(txtNombre2);
+		txtNombre2.setText((String) modelo.getValueAt(1, 0));
+		
+		txtPuntuacion2 = new JTextField();
+		txtPuntuacion2.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPuntuacion2.setColumns(10);
+		txtPuntuacion2.setBackground(null);
+		txtPuntuacion2.setBorder(null);
+		txtPuntuacion2.setBounds(186, 335, 86, 20);
+		contentPane.add(txtPuntuacion2);
+		txtPuntuacion2.setText(p2);
+		
+		txtNombre3 = new JTextField();
+		txtNombre3.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombre3.setColumns(10);
+		txtNombre3.setBackground(null);
+		txtNombre3.setBorder(null);
+		txtNombre3.setBounds(355, 315, 86, 20);
+		contentPane.add(txtNombre3);
+		txtNombre3.setText((String) modelo.getValueAt(2, 0));
+		
+		txtPuntuacion3 = new JTextField();
+		txtPuntuacion3.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPuntuacion3.setColumns(10);
+		txtPuntuacion3.setBackground(null);
+		txtPuntuacion3.setBorder(null);
+		txtPuntuacion3.setBounds(355, 335, 86, 20);
+		contentPane.add(txtPuntuacion3);
+		txtPuntuacion3.setText(p3);
+		
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 	}
 
 	public void paint(Graphics g) {
@@ -153,5 +261,19 @@ public class Ranking extends JFrame {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	public void paint(Graphics g) {
+		super.paint(g);
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File("./contenido/trofeos.png"));
+			g.drawImage(image, 10, 11, null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+>>>>>>> branch 'master' of https://github.com/LuandusW/Proyecto
 }
