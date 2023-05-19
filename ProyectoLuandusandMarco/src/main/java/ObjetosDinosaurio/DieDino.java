@@ -56,6 +56,11 @@ public class DieDino {
 			d.draw(g);
 		}
 	}
+	
+	public void reset() {
+		die.clear();
+		die.add(getRandomCactus());
+	}
 
 	private Cactus getRandomCactus() {
 		Cactus cactus;

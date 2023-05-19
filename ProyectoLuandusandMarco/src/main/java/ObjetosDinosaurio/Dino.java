@@ -12,6 +12,7 @@ import Util.Animacion;
 public class Dino {
 	private static final float GRAVITYY = 0.1f;
 	public static final float GROUNDYY = 110;
+	
 	private float x = 0;
 	private float y = 0;
 	private float speedY = 0;
@@ -49,7 +50,7 @@ public class Dino {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
-		g.drawRect((int) x, (int) y, correr.getFrame().getWidth(), correr.getFrame().getHeight());
+		//g.drawRect((int) x, (int) y, correr.getFrame().getWidth(), correr.getFrame().getHeight());
 		g.drawImage(correr.getFrame(), (int) x, (int) y, null);
 	}
 

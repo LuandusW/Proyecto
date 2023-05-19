@@ -32,16 +32,18 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	private int statusGame = JUEGO_STATUS;
 
 	private BufferedImage imgGameOver;
-
+	private BufferedImage imgReplay;
 	public GraficoDinosaurio() {
 		thread = new Thread(this);
 		dino = new Dino();
 		// posicion que inicia dinosaurio
 		dino.setX(50);
+		dino.setY(60);
 		isla = new Isla(this);
 		nubes = new Nubes();
 		diedino = new DieDino(dino,this);
 		imgGameOver = Resource.getResourceImage("./contenido/gameover_text.png");
+		imgReplay = Resource.getResourceImage("./contenido/replay_button.png");
 	}
 
 	public void empiezaJuego() {
@@ -54,7 +56,7 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 			try {
 				actualizar();
 				repaint();
-				Thread.sleep(20);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -87,12 +89,17 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 		super.paint(g);
 		g.setColor(Color.decode("#f7f7f7"));
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.setColor(Color.black);
-		g.drawLine(0, (int) GROUNDY, getWidth(), (int) GROUNDY);
+//		g.setColor(Color.black);
+//		g.drawLine(0, (int) GROUNDY, getWidth(), (int) GROUNDY);
 
 		switch (statusGame) {
 		case JUEGO_STATUS:
 			dino.draw(g);
+			nubes.draw(g);
+			isla.draw(g);
+			dino.draw(g);
+			diedino.draw(g);
+			g.drawString("Puntos: " + String.valueOf(puntos), 500, 20);
 			break;
 		case JUEGO_EMPIEZA:
 			nubes.draw(g);
@@ -107,12 +114,20 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 			dino.draw(g);
 			diedino.draw(g);
 			if (statusGame == JUEGO_ACABA) {
-				g.drawImage(imgGameOver, 200, 50, null);
+				g.drawImage(imgGameOver, 180, 40, null);
+				g.drawImage(imgReplay, 260, 60, null);
 			}
 			break;
 
 		}
 
+	}
+	
+	private void restartGame() {
+		dino.setVida(true);
+		dino.setX(50);
+		dino.setY(60);
+		diedino.reset();
 	}
 
 	@Override
@@ -134,6 +149,7 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 			} else if (statusGame == JUEGO_EMPIEZA) {
 				dino.jump();
 			} else if (statusGame == JUEGO_ACABA) {
+				restartGame();
 				statusGame = JUEGO_STATUS;
 			}
 			break;
