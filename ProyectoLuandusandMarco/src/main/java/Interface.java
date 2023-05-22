@@ -125,17 +125,6 @@ public class Interface extends JFrame{
 		e.printStackTrace();
 		}
 	}
-	public void comprobar(String nom_usuario) {
-		try {
-			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT * FROM USUARIOS WHERE nom_usuario='"+nom_usuario+"'");
-			String check_nom_usuario = rs.getString(1);
-		} catch (SQLException e) {
-		e.printStackTrace();
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-	}
 	public void paint(Graphics g) {
 		super.paint(g);
 		BufferedImage image = null;

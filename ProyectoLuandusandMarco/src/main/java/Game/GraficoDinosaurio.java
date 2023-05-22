@@ -22,7 +22,6 @@ import ObjetosDinosaurio.Dino;
 import ObjetosDinosaurio.Isla;
 import ObjetosDinosaurio.Nubes;
 import Util.Resource;
-import common.Logger;
 
 public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	public static final int JUEGO_STATUS = 0;
@@ -40,6 +39,9 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	private Dinosaurio dn;
 	private int statusGame = JUEGO_STATUS;
 	private boolean saltar = true;
+
+	private BufferedImage imgGameOver;
+	private BufferedImage imgReplay;
 	
 	public Properties prop=null;
 	public FileInputStream is = null;
@@ -49,9 +51,6 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	public String sql=null;
 	public Statement statement=null;
 	public Connection conn=null;
-
-	private BufferedImage imgGameOver;
-	private BufferedImage imgReplay;
 
 	public GraficoDinosaurio() {
 		thread = new Thread(this);
@@ -64,6 +63,7 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 		diedino = new DieDino(dino, this);
 		imgGameOver = Resource.getResourceImage("./contenido/gameover_text.png");
 		imgReplay = Resource.getResourceImage("./contenido/replay_button.png");
+		conectar();
 	}
 
 	public void empiezaJuego() {
@@ -182,14 +182,13 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 				if (dino.getY() == 67 ) {
 					saltar = true;
 					dino.jump();
-					
 				}
 			} else if (statusGame == JUEGO_ACABA) {
 				restartGame();
 				statusGame = JUEGO_EMPIEZA;
 				puntos = 0;
-
 			}
+			break;
 		}
 	}
 	public void conectar() {
