@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Game.Dinosaurio;
 import Game.GraficoDinosaurio;
 import Util.Resource;
 
@@ -17,6 +18,8 @@ public class DieDino {
 	private BufferedImage imgCactus1, imgCactus2;
 	private Dino dino;
 	private GraficoDinosaurio gd;
+	private Dinosaurio dn;
+
 
 	public DieDino(Dino dino, GraficoDinosaurio gd) {
 		this.gd = gd;
@@ -40,13 +43,14 @@ public class DieDino {
 			}
 			if (d.getBound().intersects(dino.getBound())) {
 				dino.setVida(false);
+				dn.log.info("Se murio");
 			}
 		}
 
-		Die firstDie = die.get(0);
-		if (firstDie.salirPantalla()) {
+		Die cactusActual = die.get(0);
+		if (cactusActual.salirPantalla()) {
 			die.add(getRandomCactus());
-			die.remove(firstDie);
+			die.remove(cactusActual);
 		}
 
 	}

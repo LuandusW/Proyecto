@@ -198,7 +198,7 @@ public class Ranking extends JFrame{
 	public void cargarDatos() {
 		try {
 			Statement s = conn.createStatement();
-			rs=s.executeQuery("SELECT nom_usuario, puntuacion FROM USUARIOS ORDER BY puntuacion DESC LIMIT 3");
+			rs=s.executeQuery("SELECT DISTINCT nom_usuario, puntuacion FROM USUARIOS ORDER BY puntuacion DESC LIMIT 3");
 			ResultSetMetaData metaDatos = rs.getMetaData();
 			while (rs.next()) {
 				int numeroColumnas = metaDatos.getColumnCount();

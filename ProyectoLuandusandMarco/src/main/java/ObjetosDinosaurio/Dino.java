@@ -11,8 +11,8 @@ import Util.Animacion;
 
 public class Dino {
 
-	private static final float GRAVITYY = 0.1f;
-	public static final float GROUNDYY = 110;
+	private static final float GRAVEDAD = 0.1f;
+	public static final float SUELO = 110;
 	
 	private float x = 0;
 	private float y = 0;
@@ -30,12 +30,11 @@ public class Dino {
 
 	public void actualizar() {
 		correr.updateFrame();
-		// all these line code for jumping
-		if (y >= GROUNDYY - correr.getFrame().getHeight()) {
+		if (y >= SUELO - correr.getFrame().getHeight()) {
 			speedY = 0;
-			y = GROUNDYY - correr.getFrame().getHeight();
+			y = SUELO - correr.getFrame().getHeight();
 		} else {
-			speedY += GRAVITYY;
+			speedY += GRAVEDAD;
 			y += speedY;
 		}
 

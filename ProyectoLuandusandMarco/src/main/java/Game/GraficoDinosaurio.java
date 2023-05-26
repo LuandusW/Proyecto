@@ -55,7 +55,6 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	public GraficoDinosaurio() {
 		thread = new Thread(this);
 		dino = new Dino();
-		// posicion que inicia dinosaurio
 		dino.setX(50);
 		dino.setY(60);
 		isla = new Isla(this);
@@ -76,11 +75,9 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 			try {
 				actualizar();
 				repaint();
-				Thread.sleep(10);
+				Thread.sleep(4);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				dn.log.debug(e);
+				dn.log.debug("Error"+e);
 			}
 		}
 	}
@@ -212,13 +209,15 @@ public class GraficoDinosaurio extends JPanel implements Runnable, KeyListener {
 	public void insertarPuntuacion(int puntuacion) {
 		try {
 			Statement st = conn.createStatement();
-			String sql="SELECT nom_usuario FROM USUARIOS ORDER BY id DESC LIMIT 1";
+			String sql="SELECT id, nom_usuario FROM USUARIOS ORDER BY id DESC LIMIT 1";
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()) {
-				String nom_usuario=rs.getString(1);
-				PreparedStatement statement=conn.prepareStatement("UPDATE USUARIOS SET nom_usuario=?, puntuacion=? WHERE nom_usuario='"+nom_usuario+"'");
-				statement.setString(1,nom_usuario);
-				statement.setInt(2,puntuacion);
+				int id=rs.getInt(1);
+				String nom_usuario=rs.getString(2);
+				PreparedStatement statement=conn.prepareStatement("UPDATE USUARIOS SET id=?, nom_usuario=?, puntuacion=? WHERE id="+id);
+				statement.setInt(1,id);
+				statement.setString(2, nom_usuario);
+				statement.setInt(3,puntuacion);
 				int retorno=statement.executeUpdate();
 				if (retorno>0) {
 				}

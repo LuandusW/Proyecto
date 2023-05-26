@@ -15,8 +15,6 @@ public class Isla {
 
 	public Isla(GraficoDinosaurio gd) {
 		imageLand1 = Resource.getResourceImage("./contenido/land1.png");
-
-		// Rellenar Calle;
 		int numeroIsla = 600 / imageLand1.getWidth() + 2;
 		listImage = new ArrayList<imageIsla>();
 		for (int i = 0; i < numeroIsla; i++) {
@@ -24,14 +22,12 @@ public class Isla {
 			listImage.add(imgIsla);
 		}
 	}
-
-	// hace caminar.
 	public void actualizar() {
 		for (imageIsla imgIsla : listImage) {
 			imgIsla.posX--;
 		}
-
-		// Completa camino
+		
+		
 		imageIsla primerElemento = listImage.get(0);
 		if (primerElemento.posX + imageLand1.getWidth() < 0) {
 			primerElemento.posX = listImage.get(listImage.size() - 1).posX + imageLand1.getWidth();
@@ -39,8 +35,6 @@ public class Isla {
 			listImage.remove(0);
 		}
 	}
-
-	// Ver calle
 	public void draw(Graphics g) {
 		for (imageIsla imgIsla : listImage) {
 			g.drawImage(imageLand1, imgIsla.posX, (int) Game.GraficoDinosaurio.GROUNDY - 20, null);

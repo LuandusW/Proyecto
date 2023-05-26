@@ -65,7 +65,7 @@ public class Nubes {
 	}
 
 	private class Nube {
-		float posX; // Cordenada
+		float posX;
 		float posY;
 	}
 }

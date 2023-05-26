@@ -15,7 +15,6 @@ public class Dinosaurio extends JFrame {
 		super("Dinosaurio");
 		setSize(600, 175);
 		setLocation(400, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gd = new GraficoDinosaurio();
 		add(gd);
 		addKeyListener(gd);
